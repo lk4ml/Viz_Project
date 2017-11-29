@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<h2> Let's Study the Growth Rate of Each Religion</h2>
+</head>
+
+<style> /* set the CSS */
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+h2,h3 {
+    color: black;
+}
+
+body {
+        color:blue;
+        background-color:#BDBDBD;
+        /*background-image: url("god6.jpg");*/
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 3.0px;
+}
+
+a:link {
+    color: red;
+}
+
+a:hover {
+    color: steelblue ;
+}
+
+img{border:0;}
+</style>
+
+
+<body>
+
+<!-- load the d3.js library -->     
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<img  style="width:250px; height: 500px; "src="muslim_4.jpg" alt="Girl in a jacket" align="right">
+<div id ="chart3" style="width:body; float:Left;">
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 20, right: 20, bottom: 30, left: 100},
+    width = 960 -margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// parse the date / time
+var parseTime = d3.timeParse("%Y");
+
+// set the ranges
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+// define the 1st line
+var valueline = d3.line()
+    .curve(d3.curveCardinal)
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Christian); });
+
+// define the 2nd line
+var valueline2 = d3.line()
+    .curve(d3.curveCardinal)
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Islam); });
+
+
+var valueline3 = d3.line()
+    .curve(d3.curveCardinal)
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Bhudism); });
+
+var valueline4 = d3.line()
+    .curve(d3.curveCardinal)
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Hindu); });
+
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("#chart3").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Get the data
+d3.csv("abc.csv", function(error, data) {
+  if (error) throw error;
+
+  // format the data
+  data.forEach(function(d) {
+      d.date = parseTime(d.date);
+      d.Christian = +d.Christian;
+      d.Islam = +d.Islam;
+      d.Bhudism= +d.Bhudism;
+      d.Hindu= +d.Hindu;
+  });
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) {
+    return Math.max(d.Christian,d.Islam,d.Bhudism,d.Hindu);})]);
+
+  // Add the valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      // .attr("transform", "translate(" + margin.left + " ,0)")
+      .attr("d", valueline);
+
+   svg.append("text")
+        .attr("transform", "translate("+(width-25)+","+y(data[data.length-1].Christian)+")")
+        .attr("text-anchor", "start")
+        .style("fill","black")
+        .attr("font-size","12")
+        .text("Christian");
+
+  // Add the valueline2 path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      // .attr("transform", "translate(" + margin.left + " ,0)")
+      .style("stroke", "#dc3912")
+      .attr("d", valueline2);
+
+    svg.append("text")
+        .attr("transform", "translate("+(width-20)+","+y(data[data.length-1].Islam)+")")
+        .attr("text-anchor", "start")
+        .style("fill", "black")
+        .attr("font-size","12")
+        .text("Islam");
+
+
+ svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      // .attr("transform", "translate(" + margin.left + " ,0)")
+      .style("stroke", "#ff9900")
+      .attr("d", valueline3);
+
+
+    svg.append("text")
+        .attr("transform", "translate("+(width-25)+","+y(data[data.length-1].Bhudism)+")")
+        .attr("text-anchor", "start")
+        .style("fill", "black")
+        .attr("font-size","12")
+        .text("Bhudism");
+
+
+   svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      // .attr("transform", "translate(" + margin.left + " ,0)")
+      .style("stroke", "#109618")
+      .attr("d",valueline4);
+
+  svg.append("text")
+        .attr("transform", "translate("+(width-30)+","+y(data[data.length-1].Hindu)+")")
+        .attr("text-anchor", "start")
+        .style("fill", "black")
+        .attr("font-size","12")
+        .text("Hindu");
+
+
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  svg.append("g")
+      // .attr("transform", "translate(" + margin.left + " ,0)")
+      .call(d3.axisLeft(y));
+
+
+});
+
+</script>
+</div>
+
+<div id ="Writeup" style="width:body; float:Left;">
+<h3>Few Noticable points</h3>
+
+<p style="color:black;"> As we could notice one thing very easily , that the rate of growth of Islamic Religion is the fastest and 
+its growing by time In the next half century or so, Christianity’s long reign as the world’s largest religion may come to an end, according to a just-released report that builds on 
+ <a href="http://www.pewforum.org/2015/04/02/religious-projections-2010-2050/Pew">Research Center’s original population growth projections</a>for religious groups. Indeed, Muslims will grow more than twice as fast as the overall world population between 2015 and 2060 and, in the second half of this century, will likely surpass Christians as the world’s largest religious group.
+ 
+ <div>
+<h3><strong>Find the Summarization of above linked page : </strong><br></h3>
+<p style="color:black;font:sans-serif;">
+ Muslims are on track to become the world’s fastest-growing major religious group in the years ahead, according to new analysis of data from the Pew Research Center.<br>
+
+ Christians make up the largest religious group in the world, at 2.3 billion people. Muslims make up the next biggest group, at just under 2 billion. But the global Muslim population is relatively young, with a high fertility rate and a low death rate.In an analysis released Wednesday, Pew estimates that in the five-year period between 2030 and 2035, the Muslim birth rate will overtake the birth rate among Christians, with 225 million babies born to Muslim families in those years, compared to 224 million among Christians.</i>
+ </p><br>
+
+</body>

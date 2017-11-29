@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>DATA VIZ For TITANIC</title>
+		<link rel="stylesheet" type="text/css" href="style.css" >
+		<script src="http://d3js.org/d3.v4.min.js"></script>
+  		<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+  	<style>
+  	 	body {
+
+  	 		margin:50px;
+  	 		color:blue;
+  	 		background-color:#BDBDBD;
+  	 		/*background-image: url("titanic2.jpeg")*/
+  	 	}
+  	</style>
+	</head>
+
+	<body>
+		<h2><i> Data Vizualization Makes it Just easy</i></h2>
+
+		<h2 style="color:red;"> Survivors by Passenger Class </h2>
+
+		<div id ="chartContainer2" style="float:left;" >
+		<script type="text/javascript">
+			
+		var svg2=dimple.newSvg('#chartContainer2',600,400);
+		d3.csv("train.csv" , function(data)  {
+
+			var ChartInstance = new dimple.chart(svg2,data);
+			ChartInstance.setBounds(60,30,510,305);
+			var x = ChartInstance.addCategoryAxis('x','Passenger Class');
+
+			x.addOrderRule('Type');
+
+			var y = ChartInstance.addPctAxis('y','Count');
+			var s = ChartInstance.addSeries('Status', dimple.plot.bar );
+
+			ChartInstance.addLegend(60,10,510,20,'right');
+
+			ChartInstance.draw(1000);
+		}); 
+		</script>
+   </div>
+
+ <div style="float: right;">		
+
+<!-- <iframe width="420" height="315" src="https://www.youtube.com/watch?v=FSGeskFzE0s?autoplay=1"> -->
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FSGeskFzE0s" frameborder="0" allowfullscreen></iframe>
+</div>
+   <div style="float:left;"">
+		 This is my attempt to show how does it matter , in case of survival , if you embarked the titatnic in 
+		 First Class,Second Class, Third Class. Basically , if we see the story , we would find that people who embarked into first classes were given prefreneces over lower and labour class that was their for service in titanic. 
+		 <Strong> Look above the distribution of survival class wise : </Strong>
+		 <li>First Class</li>
+		 <li>Second Class</li>
+		 <li>Third Class</li>
+		 </ui>
+		Lets look at the Bar Chart class and see what percentage of survival happend in which class
+		Second i have also attemped to show the same information in terms of Pie Chart.
+		</div>
+
+	<div id ="PieChartContainer" style="float:left;">
+		<h2 style="color:green"> Passenger Survival </h2>
+			<script type="text/javascript">
+
+			var svg12 = dimple.newSvg('#PieChartContainer',590,400);
+		    d3.csv("train.csv", function(data){
+
+				var chartgroup = new dimple.chart(svg12,data);
+				chartgroup.setBounds(20,20,460,360);
+				chartgroup.addMeasureAxis('p','Passenger Class');
+				chartgroup.addSeries('Passenger Class', dimple.plot.pie);
+				chartgroup.addLegend(500,20,90,300,'left');
+				chartgroup.draw();
+	});
+</script>
+</div>
+  </body>
+
+</html>
