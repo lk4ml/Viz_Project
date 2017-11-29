@@ -4,5 +4,6 @@ Main File is Project.html
 
 All the D3 figures code are put into figure1.js,figure2.js,figure3.js
 
-There is also an attempt made to use Dimple on the top of D3 Js to capture another story.
+There is also an attempt made to use Dimple on the top of D3 Js to capture another story
+of titanic survival and you can see it using titanic.html 
 
