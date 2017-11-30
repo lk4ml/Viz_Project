@@ -18,8 +18,8 @@ h2,h3 {
 
 body {
         color:blue;
-        background-color:#BDBDBD;
-        /*background-image: url("god6.jpg");*/
+        background-color:white;
+        background-image: url("god.jpg");*/
 }
 
 .line {
@@ -44,7 +44,7 @@ img{border:0;}
 
 <!-- load the d3.js library -->     
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<img  style="width:250px; height: 500px; "src="muslim_4.jpg" alt="Girl in a jacket" align="right">
+<!-- <img  style="width:250px; height: 500px; "src="god.jpg" alt="Girl in a jacket" align="right"> -->
 <div id ="chart3" style="width:body; float:Left;">
 <script>
 
@@ -61,31 +61,29 @@ var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
 // define the 1st line
-var valueline = d3.line()
+var line1 = d3.line()
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.Christian); });
 
 // define the 2nd line
-var valueline2 = d3.line()
+var line2 = d3.line()
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.Islam); });
 
 
-var valueline3 = d3.line()
+var line3 = d3.line()
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.Bhudism); });
 
-var valueline4 = d3.line()
+var line4 = d3.line()
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.Hindu); });
 
-// append the svg obgect to the body of the page
-// appends a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
+
 var svg = d3.select("#chart3").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -93,8 +91,8 @@ var svg = d3.select("#chart3").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// Get the data
-d3.csv("abc.csv", function(error, data) {
+// This step is for reading the data in csv ;
+d3.csv("Religion_Growth.csv", function(error, data) {
   if (error) throw error;
 
   // format the data
@@ -106,17 +104,17 @@ d3.csv("abc.csv", function(error, data) {
       d.Hindu= +d.Hindu;
   });
 
-  // Scale the range of the data
+  //  Now we Will scale the data that we got !!
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([0, d3.max(data, function(d) {
     return Math.max(d.Christian,d.Islam,d.Bhudism,d.Hindu);})]);
 
-  // Add the valueline path.
+  // Add the line1 path.
   svg.append("path")
       .data([data])
       .attr("class", "line")
       // .attr("transform", "translate(" + margin.left + " ,0)")
-      .attr("d", valueline);
+      .attr("d", line1);
 
    svg.append("text")
         .attr("transform", "translate("+(width-25)+","+y(data[data.length-1].Christian)+")")
@@ -125,13 +123,13 @@ d3.csv("abc.csv", function(error, data) {
         .attr("font-size","12")
         .text("Christian");
 
-  // Add the valueline2 path.
+  // Add the line2 path.
   svg.append("path")
       .data([data])
       .attr("class", "line")
       // .attr("transform", "translate(" + margin.left + " ,0)")
       .style("stroke", "#dc3912")
-      .attr("d", valueline2);
+      .attr("d", line2);
 
     svg.append("text")
         .attr("transform", "translate("+(width-20)+","+y(data[data.length-1].Islam)+")")
@@ -146,7 +144,7 @@ d3.csv("abc.csv", function(error, data) {
       .attr("class", "line")
       // .attr("transform", "translate(" + margin.left + " ,0)")
       .style("stroke", "#ff9900")
-      .attr("d", valueline3);
+      .attr("d", line3);
 
 
     svg.append("text")
@@ -162,7 +160,7 @@ d3.csv("abc.csv", function(error, data) {
       .attr("class", "line")
       // .attr("transform", "translate(" + margin.left + " ,0)")
       .style("stroke", "#109618")
-      .attr("d",valueline4);
+      .attr("d",line4);
 
   svg.append("text")
         .attr("transform", "translate("+(width-30)+","+y(data[data.length-1].Hindu)+")")
