@@ -3,12 +3,13 @@ of their over a period of time:*
 
 **DATA Source**
 
-Data is pulled from  the given below resource and is used as per the focus area.
+Data is pulled from  the given below resource by **Curran** and is used as per the focus area.
 The data is further modified as needed using Pivot to give it a good shape to be a read as 
 aggregated columns.
+Another Data set for Titanic Survival is used from Kaggle.
 
 https://github.com/curran/data/blob/gh-pages/pew/religion/processed/religionByCountryTop5.csv
-
+https://www.kaggle.com/c/titanic/data
 
 **Project Description** :
 
