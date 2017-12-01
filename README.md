@@ -26,7 +26,8 @@ There is also an attempt made to use Dimple on the top of D3 Js to capture anoth
 of titanic survival and you can see it using titanic.html 
 
 **References**
-https://bl.ocks.org/mbostock
-https://github.com/d3/d3/blob/master/API.md
+*https://bl.ocks.org/mbostock*
+
+*https://github.com/d3/d3/blob/master/API.md*
 
 
