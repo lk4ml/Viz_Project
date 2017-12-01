@@ -8,8 +8,8 @@ The data is further modified as needed using Pivot to give it a good shape to be
 aggregated columns.
 Another Data set for Titanic Survival is used from Kaggle.
 
-https://github.com/curran/data/blob/gh-pages/pew/religion/processed/religionByCountryTop5.csv
-https://www.kaggle.com/c/titanic/data
+<p>https://github.com/curran/data/blob/gh-pages/pew/religion/processed/religionByCountryTop5.csv</br>
+https://www.kaggle.com/c/titanic/data</p>
 
 **Project Description** :
 
@@ -26,8 +26,8 @@ There is also an attempt made to use Dimple on the top of D3 Js to capture anoth
 of titanic survival and you can see it using titanic.html 
 
 **References**
-*https://bl.ocks.org/mbostock*
+<p>*https://bl.ocks.org/mbostock* </br>
 
-*https://github.com/d3/d3/blob/master/API.md*
+*https://github.com/d3/d3/blob/master/API.md* </p>
 
 
