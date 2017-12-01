@@ -27,7 +27,6 @@ of titanic survival and you can see it using titanic.html
 
 **References**
 <p>https://bl.ocks.org/mbostock</br>
-
 https://github.com/d3/d3/blob/master/API.md</p>
 
 

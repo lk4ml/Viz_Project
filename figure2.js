@@ -7,14 +7,15 @@ var groups = [
   "Hindu",
   "Jewish",
   "Muslim",
-  "OtherReligions" ];
+  "OtherReligions",
+  "unknown" ];
 
 d3.csv("Religion_Data.csv", type, function(error, states) {
   if (error) throw error;
   var stateById = d3.map();
   states.forEach(function(d) { stateById.set(d.State, d); });
   dispatch.call("load", this, stateById);
-  dispatch.call("statechange", this, stateById.get("Brazil"));
+  dispatch.call("statechange", this, stateById.get("China"));
 });
 
 // A drop-down menu for selecting a state; uses the "menu" namespace.
