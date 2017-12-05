@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body {
+                    font-family: Helvetica;
+                    background-color: #deebf7;
+            }
+
+            .axisx line{
+                stroke:blue;
+                }
+
+            .axisx path{
+              stroke:blue;
+                }
+            
+
+            .axisy line{
+                stroke:blue;
+                }
+            
+
+
+            .axisy path{
+              stroke:blue;
+                }
+
+
+
+            h2,h3{
+                font-style: sans-serif;
+                color:steelblue;
+            }
+            svg {
+                    width: 600px;
+                    height:400px;
+            }
+            .line {
+                    fill: none;
+                    stroke: steelblue;
+                    stroke-width: 2px;
+                }
+ 
+           .axis { 
+                font: 5px sans-serif; }
+
+        </style>
+    </head>
+
+    <body>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script>
+            // add a header
+            d3.select("body").append("h2").text("BITCOIN TRADING PLATFORM");
+
+            // set the dimensions and margins of the graph
+            var margin = {top: 20, right:10, bottom: 20, left: 50},
+            width = 550 - margin.left - margin.right,
+            height =350 - margin.top - margin.bottom;
+
+            var parseDate=d3.timeParse("%m/%d/%y")
+
+            var svg = d3.select("body").append("svg")
+          
+            var timeGroup = svg.append("g")
+                    .attr("class", "line_graph")
+                    .attr("transform", "translate(" + margin.left +", 0)");
+                                 
+
+            // get the data
+            d3.csv("bitcoin.csv", function(data) {
+
+                data.forEach(function(d) {
+                            d.Date=parseDate(d.Date)
+                            d.Close=+d.Close;
+                            d.Open=+d.Open;
+                            });
+                
+                //time
+                var x = d3.scaleTime()
+
+                        .domain(d3.extent(data,function(d) { return d.Date;}))
+                        .range([0,width])
+                   
+
+                var y = d3.scaleLinear()
+                        .domain([0, d3.max(data,function(d){ return d.Close;})])
+                        .range([height, 10]);
+
+
+                // define the line
+                var valueline = d3.line()
+                    .curve(d3.curveCardinal)
+                    .x(function(d) { return x(d.Date); })
+                    .y(function(d) { return y(d.Close); });
+
+                var valueline2 = d3.line()
+                    .curve(d3.curveCardinal)
+                    .x(function(d) { return x(d.Date); })
+                    .y(function(d) { return y(d.Open); });
+                
+         
+                // Add the valueline path.
+                timeGroup.append("path")
+                      .data([data])
+                      .attr("class", "line")
+                      .attr("d", valueline)
+                      .style("stroke", "#dc3912")
+                      .attr("transform", "translate(" + margin.left +", 0)");
+
+                timeGroup.append("text")
+                .attr("transform", "translate("+(width-3)+","+ y(data[1].Close)+")")
+                .attr("text-anchor","start")
+                .style("fill","#dc3912")
+                .attr("font-size","12")
+                .text("Close");      
+
+
+                timeGroup.append("path")
+                      .data([data])
+                      .attr("class", "line")
+                      .attr("d", valueline2)
+                      .style("stroke", "black")
+                      .attr("transform", "translate(" + margin.left +", 0)"); 
+
+
+                timeGroup.append("text")
+                .attr("transform", "translate("+(width-3)+","+ y(data[10].Open)+")")
+                .attr("text-anchor", "start")
+                .style("fill","black")
+                .attr("font-size","12")
+                .text("Open"); 
+        
+
+        
+                // Add the X Axis
+                timeGroup.append("g")
+                        .attr("class", "axisx")
+                        .attr("transform", "translate(" + margin.left + "," + height + ")")
+                        .call(d3.axisBottom(x).ticks(8));
+
+                // text label for the x axis
+                timeGroup.append("text")             
+                      .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+                      .style("text-anchor", "middle")
+                      .text("YEAR 2017")
+                      .attr("font-size",15)
+                      .style("fill","black");        
+
+                 // Add the Y Axis
+                timeGroup.append("g")
+                         .attr("class", "axisy")
+                         .attr("transform", "translate(" + margin.left + ",0)")
+                         .call(d3.axisLeft(y).ticks(4));
+
+
+                 timeGroup.append("text")
+                        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the 
+                        .attr("transform", "translate(0,"+(height/2)+")rotate(-90)") 
+                        .text("Prices in $USD")
+                        .style("fill","black");
+  });
+        </script>
+</body>
+<div>
+<h3> Analysis of Crytocurrency Bitcoin</h3>
+<p> I have been observing bitcoin for quite a while now , for around more than two years. But very recently
+<strong><i>After Warenn Buffet came up  </i></strong> with a statement that Bitcoin is here to stay and it will finally 
+be the currency of the world.</br>
+I have presonally inversted <i>USD 200 </i> into the market when the stock was listed at <i>USD 6500</i>, it has not already
+gained a lot , around <strong>50 Percent</strong>. Given the way currecny is surging up , i am very sure it has got a lot of potential and will keep on reaching around the 20,000 Mark by the end of Jan 2018.
+
+
+</div>

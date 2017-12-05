@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.axisx line{
+                stroke:steelblue;
+                }
+.axisx path{
+              stroke:steelblue;
+                }
+        
+.axisx text{
+            fill: steelblue;
+}
+
+
+ .axisy line{
+                stroke:steelblue;
+                }
+
+.axisy text{
+  fill: steelblue;
+}
+
+.axisy path{
+              stroke:steelblue;
+                }
+          
+
+body{
+  background-color: black; }
+}
+
+.dot {
+  stroke: #000;
+}
+</style>
+
+
+<body>
+
+<!-- load the d3.js library -->     
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 700 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+// Get the data
+d3.csv("cars.csv", function(error, data) {
+  if (error) throw error;
+
+  // format the data
+  data.forEach(function(d) {
+      d.MPG = +d.MPG;
+      d.Horsepower = +d.Horsepower
+  });
+
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+  var x = d3.scaleLinear()
+            .domain(d3.extent(data, function(d) { return d.MPG; }))
+            .range([0, width]);
+
+var y = d3.scaleLinear()
+          .domain([0,d3.max(data, function(d) { return d.Horsepower; })])
+          .range([height, 0]);
+
+
+
+  svg.selectAll("dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("transform", "translate(" + margin.left + ",20)")
+      .attr("r", 5)
+      .style("fill","red")
+      .attr("cx", function(d) { return x(d.MPG); })
+      .attr("cy", function(d) { return y(d.Horsepower); })
+      .style("fill", function(d) { return color(d.Car_Name); });
+
+
+  // Add the X Axis 
+  svg.append("g")
+    .attr("class", "axisx")
+    .attr("transform", "translate(" + margin.left + "," + height + ")")
+    .call(d3.axisBottom(x).ticks(8));
+
+   svg.append("text")             
+          .attr("transform","translate(" + (width/2) + " ," + (height + 30 ) + ")")
+          .style("text-anchor", "middle")
+          .text("MPG")
+          .attr("font-size",15)
+          .style("fill","steelblue");   
+
+
+  //Add the Yaxis 
+svg.append("g")
+      .attr("class", "axisy")
+      .attr("transform", "translate(" + margin.left + ",0)")
+      .call(d3.axisLeft(y));
+
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the 
+        .attr("transform", "translate(0,"+(height/2)+")rotate(-90)") 
+        .text("HORSEPOWER")
+        .style("fill","steelblue");
+
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 -(margin.top/20))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("fill","steelblue")
+        .style("text-decoration", "underline")  
+        .text("Correlation Study of Horsepower Vs MPG ");
+
+
+});
+
+
+
+
+</script>
+
+<div>
+<h4 style="color:steelblue;">Few Noticable points about this graphs are given below :</h3>
+<p style="color:steelblue;">
+<ol>
+<li style="color:steelblue;"> MPG increases Horsepower Decreases, Basically the relation is <i>inversely propertional </i>in terms of physis</li>
+<li style="color:steelblue;"> <i>Statistically,one can say the both are negatively corrleated </i> and hence one will decrease as other will increase.</li>
+<li style="color:steelblue;"> Horsepower means power to the engine, and If we add that to the engine, by physiscs laws, the Miles Per Gallon has to decrease </li>
+<li style="color:steelblue;"> <i>Various colors in the scatter plot , are representing different types of car Types</i>, and we can see that no matter what type of car it is , behaviour is still the same. </li>
+
+</ol>
+<p style="color:white;">P.S : I just wanted to experiment this time with boldColors as scatter plot , looks really good with bold colors , So please dont mind</p>
+</p>
+
+<p style="color:white;">
+For Question No. 2 please <a href ="bitcoin.html" style="color:white;"> Click Here</a>
+</p>
+</div>
+</body>
